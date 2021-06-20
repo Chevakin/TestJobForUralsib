@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TestJobForUralsib.Domain.Data.ModelsConfigurations;
+using TestJobForUralsib.Domain.Models;
 
 namespace TestJobForUralsib.Domain.Data
 {
@@ -12,7 +9,18 @@ namespace TestJobForUralsib.Domain.Data
         public TestJobForUralsibDbContext(DbContextOptions options)
             : base(options)
         {
+        }
 
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .ApplyConfiguration(new CustomerConfiguration())
+                .ApplyConfiguration(new CustomerExtraInformationConfiguration())
+                .ApplyConfiguration(new OrderConfiguration());
         }
     }
 }
