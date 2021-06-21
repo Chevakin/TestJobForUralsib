@@ -28,10 +28,10 @@ namespace TestJobForUralsib.Domain.Services
 
         public CustomerDto Get(int id)
         {
-            var customer = context.Customers
-                .Find(id);
-
-            return mapper.Map<CustomerDto>(customer);
+            return context.Customers
+                .Where(c => c.ID == id)
+                .ProjectTo<CustomerDto>(mapper.ConfigurationProvider)
+                .First();
         }
     }
 }
