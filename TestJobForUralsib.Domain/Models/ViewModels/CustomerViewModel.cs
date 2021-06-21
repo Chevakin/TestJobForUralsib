@@ -11,11 +11,13 @@ namespace TestJobForUralsib.Domain.Models.ViewModels
         [Display(Name = "Имя")]
         [MinLength(1)]
         [MaxLength(20)]
+        [Required]
         public string Name;
 
         [Display(Name = "Фамилия")]
         [MinLength(1)]
         [MaxLength(20)]
+        [Required]
         public string Surname;
 
         [Display(Name = "Отчество")]

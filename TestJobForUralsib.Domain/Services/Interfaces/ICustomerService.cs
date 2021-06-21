@@ -11,5 +11,7 @@ namespace TestJobForUralsib.Domain.Services.Interfaces
         CustomerDto Get(int id);
 
         void Create(string name, string surname, string patronymic, string email, string phone, DateTime? date);
+
+        void Edit(int id, string name, string surname, string patronymic, string email, string phone, DateTime? date);
     }
 }

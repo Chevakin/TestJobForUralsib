@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,22 @@ namespace TestJobForUralsib.Domain.Services
             };
 
             context.Add(customer);
+
+            context.SaveChanges();
+        }
+
+        public void Edit(int id, string name, string surname, string patronymic, string email, string phone, DateTime? date)
+        {
+            var customer = context.Customers
+                .Include(c => c.Information)
+                .First(c => c.ID == id);
+
+            customer.Name = name;
+            customer.Surname = surname;
+            customer.Patronymic = patronymic;
+            customer.Information.Email = email;
+            customer.Information.Phone = phone;
+            customer.Information.Birthdate = date;
 
             context.SaveChanges();
         }

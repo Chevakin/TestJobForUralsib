@@ -69,7 +69,7 @@ namespace TestJobForUralsib.Net.Controllers
                     }
                     else
                     {
-                        //TO DO: edit
+                        service.Edit(id, name, surname, patronymic, email, phone, birthdate);
                     }
 
                     return RedirectToAction(nameof(Get));
