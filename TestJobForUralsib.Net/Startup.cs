@@ -34,6 +34,7 @@ namespace TestJobForUralsib.Net
 
             //DI
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

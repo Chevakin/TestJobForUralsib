@@ -16,6 +16,8 @@
         <td>@Model.Email</td>
         <td>@Model.Phone</td>
         <td>@Model.Birthdate</td>
+        <td><a asp-action="Edit" asp-route-id="@Model.ID">Изменить</a></td>
+        <td><a asp-action="GetOrders" asp-route-id="@Model.ID">Список заказов</a></td>
         <td>
             <form asp-controller="Customer" asp-action="Delete" asp-route-id="@Model.ID" method="post">
                 <div class="form-group">

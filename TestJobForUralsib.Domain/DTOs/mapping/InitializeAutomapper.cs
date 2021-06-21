@@ -12,6 +12,7 @@ namespace TestJobForUralsib.Domain.DTOs.mapping
             {
                 cfg.AddProfile<CustomerProfile>();
                 cfg.AddProfile<CustomerExtraInformationProfile>();
+                cfg.AddProfile<OrderProfile>();
             });
 
             return new Mapper(config);

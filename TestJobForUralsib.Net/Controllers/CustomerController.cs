@@ -92,5 +92,11 @@ namespace TestJobForUralsib.Net.Controllers
 
             return RedirectToAction(nameof(Get));
         }
+
+        [Route("{id}/orders")]
+        public ActionResult GetOrders(int id, [FromServices]IOrderService service)
+        {
+            return View(service.Get(id));
+        }
     }
 }

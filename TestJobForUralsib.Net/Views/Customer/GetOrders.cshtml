@@ -1,0 +1,26 @@
+﻿@model IEnumerable<TestJobForUralsib.Domain.DTOs.OrderDto>
+
+<table class="table">
+    <tr>
+        <th>Дата покупки</th>
+        <th>Сумма покупки</th>
+        <th>Имя покупателя</th>
+        <th>Фамилия покупателя</th>
+        <th>Отчество покупателя</th>
+        <th>Фото чека</th>
+    </tr>
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.Date</td>
+            <td>@order.AmountMoney</td>
+            <td>@order.Customer.Name</td>
+            <td>@order.Customer.Surname</td>
+            <td>@order.Customer.Patronymic</td>
+            <th>@order.Photo</th>
+            <td><a asp-action="Details" asp-route-id="@order.Customer.ID">Подробнее об покупателе</a></td>
+        </tr>
+    }
+</table>
+
+<a asp-controller="Order" asp-action="Edit">Добавить покупку</a>

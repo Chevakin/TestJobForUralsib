@@ -22,6 +22,9 @@ namespace TestJobForUralsib.Domain.Data.ModelsConfigurations
 
             builder.Property(o => o.AmountMoney)
                 .IsRequired();
+
+            //builder.Property(o => o.Customer)
+            //    .HasColumnName("Customer_ID");
         }
     }
 }
