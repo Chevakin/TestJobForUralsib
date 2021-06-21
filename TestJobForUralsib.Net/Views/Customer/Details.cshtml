@@ -9,11 +9,18 @@
         <th>Телефон</th>
         <th>Дата рождения</th>
     </tr>
-        <tr>
-            <td>@Model.Name</td>
-            <td>@Model.Surname</td>
-            <td>@Model.Patronymic</td>
-            <td>@Model.Email</td>
-            <td>@Model.Phone</td>
-            <td>@Model.Birthdate</td>
-        </tr>
+    <tr>
+        <td>@Model.Name</td>
+        <td>@Model.Surname</td>
+        <td>@Model.Patronymic</td>
+        <td>@Model.Email</td>
+        <td>@Model.Phone</td>
+        <td>@Model.Birthdate</td>
+        <td>
+            <form asp-controller="Customer" asp-action="Delete" asp-route-id="@Model.ID" method="post">
+                <div class="form-group">
+                    <input type="submit" value="Удалить" class="btn btn-default" />
+                </div>
+            </form>
+        </td>
+    </tr>

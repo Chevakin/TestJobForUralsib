@@ -22,6 +22,17 @@ namespace TestJobForUralsib.Domain.Services
             this.mapper = mapper;
         }
 
+        private void Change(int id, Action<Customer> action)
+        {
+            var customer = context.Customers
+                .Include(c => c.Information)
+                .First(c => c.ID == id);
+
+            action(customer);
+
+            context.SaveChanges();
+        }
+
         public void Create(string name, string surname, string patronymic, string email, string phone, DateTime? date)
         {
             var customer = new Customer(name, surname, patronymic)
@@ -34,20 +45,29 @@ namespace TestJobForUralsib.Domain.Services
             context.SaveChanges();
         }
 
+        public void Delete(int id)
+        {
+            var action = new Action<Customer>(c =>
+            {
+                context.Customers.Remove(c);
+            });
+
+            Change(id, action);
+        }
+
         public void Edit(int id, string name, string surname, string patronymic, string email, string phone, DateTime? date)
         {
-            var customer = context.Customers
-                .Include(c => c.Information)
-                .First(c => c.ID == id);
+            var action = new Action<Customer>(customer =>
+            {
+                customer.Name = name;
+                customer.Surname = surname;
+                customer.Patronymic = patronymic;
+                customer.Information.Email = email;
+                customer.Information.Phone = phone;
+                customer.Information.Birthdate = date;
+            });
 
-            customer.Name = name;
-            customer.Surname = surname;
-            customer.Patronymic = patronymic;
-            customer.Information.Email = email;
-            customer.Information.Phone = phone;
-            customer.Information.Birthdate = date;
-
-            context.SaveChanges();
+            Change(id, action);
         }
 
         public IEnumerable<SimpleCustomerDto> Get()

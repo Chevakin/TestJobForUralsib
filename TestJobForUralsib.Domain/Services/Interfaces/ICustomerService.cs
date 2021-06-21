@@ -13,5 +13,7 @@ namespace TestJobForUralsib.Domain.Services.Interfaces
         void Create(string name, string surname, string patronymic, string email, string phone, DateTime? date);
 
         void Edit(int id, string name, string surname, string patronymic, string email, string phone, DateTime? date);
+
+        void Delete(int id);
     }
 }
