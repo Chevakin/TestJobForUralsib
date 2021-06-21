@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using TestJobForUralsib.Domain.Models.ViewModels;
 using TestJobForUralsib.Domain.Services.Interfaces;
 
 namespace TestJobForUralsib.Net.Controllers
@@ -6,11 +8,13 @@ namespace TestJobForUralsib.Net.Controllers
     [Route("api/customers")]
     public class CustomerController : Controller
     {
-        private readonly ICustomersService service;
+        private readonly ICustomerService service;
+        private readonly IMapper mapper;
 
-        public CustomerController(ICustomersService service)
+        public CustomerController(ICustomerService service, IMapper mapper)
         {
             this.service = service;
+            this.mapper = mapper;
         }
 
         [Route("")]
@@ -19,11 +23,13 @@ namespace TestJobForUralsib.Net.Controllers
             return View(service.Get());
         }
 
-        //// GET: CustomerController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        [Route("{id}")]
+        public ActionResult Details(int id)
+        {
+            var dto = service.Get(id);
+
+            return View(mapper.Map<CustomerViewModel>(dto));
+        }
 
         //// GET: CustomerController/Create
         //public ActionResult Create()

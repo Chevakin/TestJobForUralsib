@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TestJobForUralsib.Domain.Models;
+using TestJobForUralsib.Domain.Models.ViewModels;
 
 namespace TestJobForUralsib.Net.Controllers
 {

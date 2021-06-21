@@ -12,9 +12,11 @@
     <td>@customer.Name</td>
     <td>@customer.Surname</td>
     <td>@customer.Patronymic</td>
-    <td><a asp-action="Edit" asp-route-id="@customer.ID">edit</a></td>
+    <td><a asp-action="Details" asp-route-id="@customer.ID">Подробнее</a></td>
+
+    @*<td><a asp-action="Edit" asp-route-id="@customer.ID">edit</a></td>
     <td>@Html.ActionLink("Подробнее", "BookDetails", new { id = customer.ID })</td>
-    <td><a asp-action="Delete" asp-route-id="@customer.ID">delete</a></td>
+    <td><a asp-action="Delete" asp-route-id="@customer.ID">delete</a></td>*@
 </tr>
     }
 </table>

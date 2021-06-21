@@ -33,7 +33,7 @@ namespace TestJobForUralsib.Net
             services.AddSingleton<IMapper, Mapper>(InitializeAutomapper.GetInstance);
 
             //DI
-            services.AddScoped<ICustomersService, CustomersService>();
+            services.AddScoped<ICustomerService, CustomerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

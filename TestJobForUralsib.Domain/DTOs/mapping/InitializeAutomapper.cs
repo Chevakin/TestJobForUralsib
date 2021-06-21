@@ -11,6 +11,7 @@ namespace TestJobForUralsib.Domain.DTOs.mapping
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<CustomerProfile>();
+                cfg.AddProfile<CustomerExtraInformationProfile>();
             });
 
             return new Mapper(config);

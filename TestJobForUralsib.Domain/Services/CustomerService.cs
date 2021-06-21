@@ -8,12 +8,12 @@ using TestJobForUralsib.Domain.Services.Interfaces;
 
 namespace TestJobForUralsib.Domain.Services
 {
-    public class CustomersService : ICustomersService
+    public class CustomerService : ICustomerService
     {
         private readonly TestJobForUralsibDbContext context;
         private readonly IMapper mapper;
 
-        public CustomersService(TestJobForUralsibDbContext context, IMapper mapper)
+        public CustomerService(TestJobForUralsibDbContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
@@ -24,6 +24,14 @@ namespace TestJobForUralsib.Domain.Services
             return context.Customers
                 .ProjectTo<SimpleCustomerDto>(mapper.ConfigurationProvider)
                 .ToArray();
+        }
+
+        public CustomerDto Get(int id)
+        {
+            var customer = context.Customers
+                .Find(id);
+
+            return mapper.Map<CustomerDto>(customer);
         }
     }
 }

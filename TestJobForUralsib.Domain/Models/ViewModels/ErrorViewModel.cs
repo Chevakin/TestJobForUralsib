@@ -1,6 +1,6 @@
 using System;
 
-namespace TestJobForUralsib.Domain.Models
+namespace TestJobForUralsib.Domain.Models.ViewModels
 {
     public class ErrorViewModel
     {
