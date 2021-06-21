@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using TestJobForUralsib.Domain.Models.ViewModels;
 using TestJobForUralsib.Domain.Services.Interfaces;
 
@@ -31,26 +33,55 @@ namespace TestJobForUralsib.Net.Controllers
             return View(mapper.Map<CustomerViewModel>(dto));
         }
 
-        //// GET: CustomerController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        [Route("create")]
+        [Route("{id}/edit")]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return View(new CustomerViewModel());
+            }
 
-        //// POST: CustomerController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+            return View(mapper.Map<CustomerViewModel>(service.Get(id.Value)));
+        }
+
+        [Route("create")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(IFormCollection collection)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //Не получилось привязать модель
+                    var id = int.Parse(collection["ID"]);
+                    var name = collection["Name"][0];
+                    var surname = collection["Surname"][0];
+                    var patronymic = collection["Patronymic"][0];
+                    var email = collection["Email"][0];
+                    var phone = collection["Phone"][0];
+                    var birthdate = DateTime.Parse(collection["Birthdate"][0]);
+
+                    if (id == 0)
+                    {
+                        service.Create(name, surname, patronymic, email, phone, birthdate);
+                    }
+                    else
+                    {
+                        //TO DO: edit
+                    }
+
+                    return RedirectToAction(nameof(Get));
+                }
+
+                throw new Exception();
+            }
+            catch(Exception ex)
+            {
+                return View();
+            }
+        }
 
         //// GET: CustomerController/Edit/5
         //public ActionResult Edit(int id)

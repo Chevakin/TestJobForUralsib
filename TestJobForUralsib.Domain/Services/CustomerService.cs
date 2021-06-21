@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TestJobForUralsib.Domain.Data;
 using TestJobForUralsib.Domain.DTOs;
+using TestJobForUralsib.Domain.Models;
 using TestJobForUralsib.Domain.Services.Interfaces;
 
 namespace TestJobForUralsib.Domain.Services
@@ -17,6 +19,18 @@ namespace TestJobForUralsib.Domain.Services
         {
             this.context = context;
             this.mapper = mapper;
+        }
+
+        public void Create(string name, string surname, string patronymic, string email, string phone, DateTime? date)
+        {
+            var customer = new Customer(name, surname, patronymic)
+            {
+                Information = new CustomerExtraInformation(phone, email, date)
+            };
+
+            context.Add(customer);
+
+            context.SaveChanges();
         }
 
         public IEnumerable<SimpleCustomerDto> Get()

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TestJobForUralsib.Domain.DTOs;
 
 namespace TestJobForUralsib.Domain.Services.Interfaces
@@ -8,5 +9,7 @@ namespace TestJobForUralsib.Domain.Services.Interfaces
         IEnumerable<SimpleCustomerDto> Get();
 
         CustomerDto Get(int id);
+
+        void Create(string name, string surname, string patronymic, string email, string phone, DateTime? date);
     }
 }

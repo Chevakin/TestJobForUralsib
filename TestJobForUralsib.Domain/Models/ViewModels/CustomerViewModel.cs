@@ -29,6 +29,7 @@ namespace TestJobForUralsib.Domain.Models.ViewModels
 
         [Display(Name = "Номер мобильного телефона")]
         [Phone]
+        [Required]
         public string Phone;
 
         [Display(Name = "Дата рождения")]
