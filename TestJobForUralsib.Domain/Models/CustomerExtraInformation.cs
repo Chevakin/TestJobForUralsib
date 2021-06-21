@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestJobForUralsib.Domain.Models
 {
+    //[Table("Customer_Information")]
     public class CustomerExtraInformation
     {
         public int ID { get; set; }
@@ -18,6 +20,7 @@ namespace TestJobForUralsib.Domain.Models
             if (string.IsNullOrEmpty(phone))
                 throw new ArgumentNullException(nameof(phone));
 
+            Phone = phone;
             Email = email;
             Birthdate = birthdate;
         }

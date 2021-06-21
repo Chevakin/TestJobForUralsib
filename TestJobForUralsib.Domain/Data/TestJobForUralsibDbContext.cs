@@ -15,12 +15,16 @@ namespace TestJobForUralsib.Domain.Data
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<CustomerExtraInformation> CustomersInformations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .ApplyConfiguration(new CustomerConfiguration())
                 .ApplyConfiguration(new CustomerExtraInformationConfiguration())
                 .ApplyConfiguration(new OrderConfiguration());
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -1,15 +1,16 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TestJobForUralsib.Domain.Data;
+using TestJobForUralsib.Domain.DTOs.mapping;
+using TestJobForUralsib.Domain.Models;
+using TestJobForUralsib.Domain.Services;
+using TestJobForUralsib.Domain.Services.Interfaces;
 
 namespace TestJobForUralsib.Net
 {
@@ -27,7 +28,12 @@ namespace TestJobForUralsib.Net
         {
             services.AddMvc();
 
+            //technical DI
             services.AddDbContext<TestJobForUralsibDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<IMapper, Mapper>(InitializeAutomapper.GetInstance);
+
+            //DI
+            services.AddScoped<ICustomersService, CustomersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +42,21 @@ namespace TestJobForUralsib.Net
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                var scope = app.ApplicationServices.CreateScope();
+                var context = scope.ServiceProvider.GetRequiredService<TestJobForUralsibDbContext>();
+
+                if (context.Customers.Count() == 3)
+                {
+                    var c = new Customer("test-name-4", "test-surname-4", "test-patronymic-4")
+                    {
+                        Information = new CustomerExtraInformation("test-phone-4")
+                    };
+
+                    context.Customers.Add(c);
+
+                    context.SaveChanges();
+                }
             }
             else
             {

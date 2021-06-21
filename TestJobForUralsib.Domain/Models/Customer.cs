@@ -16,18 +16,17 @@ namespace TestJobForUralsib.Domain.Models
 
         public virtual HashSet<Order> Orders { get; set; }
 
-        public Customer(string name, string surname, string patronimyc, CustomerExtraInformation information)
-            : this(name, surname, information)
+        public Customer(string name, string surname, string patronimyc)
+            : this(name, surname)
         {
             Patronymic = patronimyc;
         }
 
-        public Customer(string name, string surname, CustomerExtraInformation information)
+        public Customer(string name, string surname)
             : this()
         {
             Name = name;
             Surname = surname;
-            Information = information;
         }
 
         private Customer()
