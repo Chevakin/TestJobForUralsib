@@ -1,0 +1,36 @@
+﻿@model TestJobForUralsib.Domain.DTOs.OrderDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddOrder" asp-route-id="@Model.Customer.ID" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AmountMoney" class="control-label"></label>
+                <input asp-for="AmountMoney" class="form-control" />
+                <span asp-validation-for="AmountMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <input type="file" asp-for="Photo" class="form-control" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            <label asp-for="Date" class="control-label"></label>
+            <input asp-for="Date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+    </form>
+</div>
+</div>
+
+<div>
+    <a asp-action="GetOrders">Back to List</a>
+</div>

@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Globalization;
+using System.IO;
+using TestJobForUralsib.Domain.DTOs;
 using TestJobForUralsib.Domain.Models.ViewModels;
 using TestJobForUralsib.Domain.Services.Interfaces;
 
@@ -11,11 +14,13 @@ namespace TestJobForUralsib.Net.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerService service;
+        private readonly IOrderService orderService;
         private readonly IMapper mapper;
 
-        public CustomerController(ICustomerService service, IMapper mapper)
+        public CustomerController(ICustomerService service, IOrderService orderService, IMapper mapper)
         {
             this.service = service;
+            this.orderService = orderService;
             this.mapper = mapper;
         }
 
@@ -94,9 +99,53 @@ namespace TestJobForUralsib.Net.Controllers
         }
 
         [Route("{id}/orders")]
-        public ActionResult GetOrders(int id, [FromServices]IOrderService service)
+        public ActionResult GetOrders(int id)
         {
-            return View(service.Get(id));
+            return View(orderService.Get(id));
+        }
+
+        [Route("{id}/orders/create")]
+        public ActionResult AddOrder(int id)
+        {
+            var dto = new OrderDto
+            {
+                Customer = new SimpleCustomerDto
+                {
+                    ID = id
+                }
+                
+            };
+
+            return View(dto);
+        }
+
+        [Route("{id}/orders/create")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddOrder(int id, IFormCollection collection)
+        {
+            if (ModelState.IsValid)
+            {
+               var amountMoney = decimal.Parse(collection["AmountMoney"][0], NumberStyles.Any, CultureInfo.CurrentCulture);
+                var date = DateTime.Parse(collection["Date"][0]);
+                var photoFile = collection.Files.GetFile("Photo");
+                byte[] photo = null;
+
+                if (photoFile != null)
+                {
+                    using var memoryStream = new MemoryStream();
+                    using var stream = photoFile.OpenReadStream();
+
+                    stream.CopyTo(memoryStream);
+                    photo = memoryStream.ToArray();
+                }
+
+                orderService.Create(date, amountMoney, photo, id);
+
+                return Redirect($"/api/customers/{id}/orders");
+            }
+
+            return View();
         }
     }
 }

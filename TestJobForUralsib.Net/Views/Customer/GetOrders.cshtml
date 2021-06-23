@@ -23,4 +23,4 @@
     }
 </table>
 
-<a asp-controller="Order" asp-action="Edit">Добавить покупку</a>
+<a asp-controller="Customer" asp-action="AddOrder" asp-route-id="@Url.ActionContext.RouteData.Values["id"]">Добавить покупку</a>
